@@ -1,0 +1,27 @@
+diff --git a/.devcontainer/Dockerfile b/.devcontainer/Dockerfile
+index 7072fc9..4c8e31a 100644
+--- a/.devcontainer/Dockerfile
++++ b/.devcontainer/Dockerfile
+@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/cpp:0-${VARIANT}
+
+ # [Optional] Install CMake version different from what base image has already installed. 
+ # CMake reinstall choices: none, 3.21.5, 3.22.2, or versions from https://cmake.org/download/
+-ARG REINSTALL_CMAKE_VERSION_FROM_SOURCE="none"
++ARG REINSTALL_CMAKE_VERSION_FROM_SOURCE="3.23"
+
+ # Optionally install the cmake for vcpkg
+ COPY ./reinstall-cmake.sh /tmp/
+@@ -19,5 +19,9 @@ RUN if [ "${REINSTALL_CMAKE_VERSION_FROM_SOURCE}" != "none" ]; then 
+ # RUN su vscode -c "${VCPKG_ROOT}/vcpkg install <your-port-name-here>"
+
+ # [Optional] Uncomment this section to install additional packages.
+-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive 
+-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+ No newline at end of file
++RUN apt-get update && export DEBIAN_FRONTEND=noninteractive 
++    && apt-get -y install --no-install-recommends clang-format
++
++# Obtain vcpkg repository and set VCPKG_ROOT
++RUN git clone --depth 1 https://github.com/microsoft/vcpkg /vcpkg
++ENV VCPKG_ROOT="/vcpkg"
+ No newline at end of file
