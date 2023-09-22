@@ -33,9 +33,18 @@ int main(int argc, char const *argv[]){
     }
 
     char* inputFile = argv[1];
-    puts(inputFile);
+    char* outputFile = argv[2];
+    char* option = argv[3];
 
-    
+    FILE* fptr;
+     if ((fptr = fopen(inputFile,"wb+")) == NULL){
+       printf("Error! opening file");
+
+       // Program exits if the file pointer returns NULL.
+       exit(1);
+   }
+    fclose(fptr);
+        
     
 
 
